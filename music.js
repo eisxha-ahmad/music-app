@@ -8,7 +8,10 @@ const songs = [
     "./music-media/abhi-na-jao.mpeg",
     "./music-media/ye dil tum bin.mp3",
     "./music-media/ye raatein.mp3",
-    "./music-media/rafta rafta.mp3"
+    "./music-media/rafta rafta.mp3",
+    "music-media/tere-naina.mp3",
+    "music-media/do-pal-ruka.mp3",
+    "music-media/jane-wo-kese.mp3"
 ];
 
 let songCards = document.querySelectorAll(".container");
