@@ -71,3 +71,18 @@ body{
     margin-bottom: 10%;
 
 }
+@media (max-width: 746px){
+    body{
+        align-items: center;
+        justify-content: center;
+    }
+    .container{
+        width: 400px;
+    
+    }
+#main-img{
+    width: 200px;
+    height: 200px;
+}
+
+}

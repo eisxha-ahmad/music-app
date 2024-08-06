@@ -1,8 +1,6 @@
 let progress = document.getElementById("progress");
 let song = document.getElementById("gana");
 let ctrl = document.getElementById("ctrl");
-const pehlagana = document.getElementById("pehla-gana");
-const dusragana = document.getElementById("dusra-gana");
 const backButtons = document.querySelectorAll(".back");
 const nextButtons = document.querySelectorAll(".next");
 const play = document.getElementsByClassName(".play");
@@ -17,9 +15,20 @@ let songCards = document.querySelectorAll(".container");
 
 let currentSongIndex = 0;
 
+
+
 song.onloadedmetadata = function(){
     progress.max = song.duration;
     progress.value = song.currentTime;
+}
+if(song.play()){
+    setInterval(()=>{
+        progress.value = song.currentTime; 
+    },500)
+}
+progress.onchange = function(){
+    song.play();
+    song.currentTime = progress.value;
 }
 
 
@@ -35,15 +44,7 @@ function pausePlay(){
     }
 }
 
-if(song.play()){
-    setInterval(()=>{
-        progress.value = song.currentTime; 
-    },500)
-}
-progress.onchange = function(){
-    song.play();
-    song.currentTime = progress.value;
-}
+
 function showCard (index){
     songCards.forEach((card, i)=>{
         card.style.display = i===index ? "block" : "none";
