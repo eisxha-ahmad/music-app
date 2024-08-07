@@ -1,6 +1,6 @@
-let progress = document.getElementById("progress");
+let progressBars = document.querySelectorAll(".progress");
 let song = document.getElementById("gana");
-let ctrl = document.getElementById("ctrl");
+let ctrlButtons = document.querySelectorAll(".ctrl");
 const backButtons = document.querySelectorAll(".back");
 const nextButtons = document.querySelectorAll(".next");
 const play = document.getElementsByClassName(".play");
@@ -17,35 +17,73 @@ const songs = [
 let songCards = document.querySelectorAll(".container");
 
 let currentSongIndex = 0;
+song.src = songs[currentSongIndex];
 
 
 
-song.onloadedmetadata = function(){
-    progress.max = song.duration;
-    progress.value = song.currentTime;
+// song.onloadedmetadata = function(){
+//     progress.max = song.duration;
+//     progress.value = song.currentTime;
+// }
+// if(song.play()){
+//     setInterval(()=>{
+//         progress.value = song.currentTime; 
+//     },500)
+// }
+// progress.onchange = function(){
+//     song.play();
+//     song.currentTime = progress.value;
+// }
+
+function updateProgressBars() {
+    progressBars.forEach(progress => {
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+    });
 }
-if(song.play()){
-    setInterval(()=>{
-        progress.value = song.currentTime; 
-    },500)
+
+song.onloadedmetadata = function() {
+    updateProgressBars();
 }
-progress.onchange = function(){
-    song.play();
-    song.currentTime = progress.value;
+if(song.play()) {
+    setInterval(updateProgressBars, 300);
 }
 
-
-function pausePlay(){
-    if (ctrl.classList.contains("bi-play-circle-fill")) {
+progressBars.forEach(progress => {
+    progress.onchange = function() {
         song.play();
-        ctrl.classList.remove("bi-play-circle-fill");
-        ctrl.classList.add("bi-pause-circle-fill");
+        song.currentTime = progress.value;
+    }
+});
+
+
+// function pausePlay(){
+//     if (ctrl.classList.contains("bi-play-circle-fill")) {
+//         song.play();
+//         ctrl.classList.remove("bi-play-circle-fill");
+//         ctrl.classList.add("bi-pause-circle-fill");
+//     } else {
+//         song.pause();
+//         ctrl.classList.remove("bi-pause-circle-fill");
+//         ctrl.classList.add("bi-play-circle-fill");
+//     }
+// }
+function pausePlay(event) {
+    const clickedCtrl = event.target;
+    if (clickedCtrl.classList.contains("bi-play-circle-fill")) {
+        song.play();
+        clickedCtrl.classList.remove("bi-play-circle-fill");
+        clickedCtrl.classList.add("bi-pause-circle-fill");
     } else {
         song.pause();
-        ctrl.classList.remove("bi-pause-circle-fill");
-        ctrl.classList.add("bi-play-circle-fill");
+        clickedCtrl.classList.remove("bi-pause-circle-fill");
+        clickedCtrl.classList.add("bi-play-circle-fill");
     }
 }
+
+ctrlButtons.forEach(ctrl => {
+    ctrl.addEventListener('click', pausePlay);
+});
 
 
 function showCard (index){
