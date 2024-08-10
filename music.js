@@ -13,7 +13,6 @@ const songs = [
     "music-media/do-pal-ruka.mp3",
     "music-media/jane-wo-kese.mp3"
 ];
-
 let songCards = document.querySelectorAll(".container");
 
 let currentSongIndex = 0;
